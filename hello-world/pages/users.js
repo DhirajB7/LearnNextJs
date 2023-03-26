@@ -1,29 +1,32 @@
-import Users from "@/components/userComponent/Users"
+import Users from "@/components/userComponent/Users";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const UserList = ({users}) => {
-    return (
-        <>
-            <div>
-                {users.map(user => <Users key={user.id} name={user.name} email = {user.email}/>)}
-            </div>            
-        </>
-    )
-}
+const UserList = ({ users }) => {
+  const router = useRouter();
 
-export default UserList
+  return (
+    <>
+      <button onClick={() => router.push("/")}>Back to homepage</button>
+      <div>
+        {users.map((user) => (
+          <Users key={user.id} name={user.name} email={user.email} />
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default UserList;
 
 export const getStaticProps = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
 
-    const res = await fetch("https://jsonplaceholder.typicode.com/users")
+  const resJson = await res.json();
 
-    const resJson = await res.json()
-
-   return {
-
-    props:{
-        users:resJson
-    }
-
-   }
-
-}
+  return {
+    props: {
+      users: resJson,
+    },
+  };
+};
