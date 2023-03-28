@@ -3,11 +3,11 @@ import { useRouter } from "next/router"
 
 const postId = ({ posts }) => {
 
-    const router = useRouter()
+    // const router = useRouter()
 
-    if (router.isFallback) {
-        return <h1>Loading...</h1>
-    }
+    // if (router.isFallback) {
+    //     return <h1>Loading...</h1>
+    // }
 
     return (
         <div>
@@ -35,7 +35,8 @@ export const getStaticPaths = async () => {
 
     return {
         paths,
-        fallback: true
+        // fallback: true // isFallback will be displayed
+        fallback:'blocking'
     }
 
 }
